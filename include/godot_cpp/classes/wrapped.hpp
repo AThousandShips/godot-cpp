@@ -160,6 +160,7 @@ protected:                                                                      
 	}                                                                                                                                                                                  \
                                                                                                                                                                                        \
 public:                                                                                                                                                                                \
+	typedef m_class self_type;                                                                                                                                                         \
 	static void initialize_class() {                                                                                                                                                   \
 		static bool initialized = false;                                                                                                                                               \
 		if (initialized) {                                                                                                                                                             \
@@ -350,6 +351,7 @@ protected:                                                                      
 	}                                                                                                                      \
                                                                                                                            \
 public:                                                                                                                    \
+	typedef m_class self_type;                                                                                             \
 	static void initialize_class() {}                                                                                      \
                                                                                                                            \
 	static ::godot::StringName &get_class_static() {                                                                       \
