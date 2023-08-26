@@ -54,7 +54,7 @@ protected:
 };
 
 class Example : public Control {
-	GDCLASS(Example, Control);
+	// GDCLASS(Example, Control);
 
 protected:
 	static void _bind_methods();
