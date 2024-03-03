@@ -128,7 +128,7 @@ Vector4 Vector4::round() const {
 	return Vector4(Math::round(x), Math::round(y), Math::round(z), Math::round(w));
 }
 
-Vector4 Vector4::lerp(const Vector4 &p_to, const real_t p_weight) const {
+Vector4 Vector4::lerp(const Vector4 &p_to, real_t p_weight) const {
 	return Vector4(
 			x + (p_weight * (p_to.x - x)),
 			y + (p_weight * (p_to.y - y)),
@@ -136,7 +136,7 @@ Vector4 Vector4::lerp(const Vector4 &p_to, const real_t p_weight) const {
 			w + (p_weight * (p_to.w - w)));
 }
 
-Vector4 Vector4::cubic_interpolate(const Vector4 &p_b, const Vector4 &p_pre_a, const Vector4 &p_post_b, const real_t p_weight) const {
+Vector4 Vector4::cubic_interpolate(const Vector4 &p_b, const Vector4 &p_pre_a, const Vector4 &p_post_b, real_t p_weight) const {
 	Vector4 res = *this;
 	res.x = Math::cubic_interpolate(res.x, p_b.x, p_pre_a.x, p_post_b.x, p_weight);
 	res.y = Math::cubic_interpolate(res.y, p_b.y, p_pre_a.y, p_post_b.y, p_weight);
@@ -145,7 +145,7 @@ Vector4 Vector4::cubic_interpolate(const Vector4 &p_b, const Vector4 &p_pre_a, c
 	return res;
 }
 
-Vector4 Vector4::cubic_interpolate_in_time(const Vector4 &p_b, const Vector4 &p_pre_a, const Vector4 &p_post_b, const real_t p_weight, const real_t &p_b_t, const real_t &p_pre_a_t, const real_t &p_post_b_t) const {
+Vector4 Vector4::cubic_interpolate_in_time(const Vector4 &p_b, const Vector4 &p_pre_a, const Vector4 &p_post_b, real_t p_weight, real_t p_b_t, real_t p_pre_a_t, real_t p_post_b_t) const {
 	Vector4 res = *this;
 	res.x = Math::cubic_interpolate_in_time(res.x, p_b.x, p_pre_a.x, p_post_b.x, p_weight, p_b_t, p_pre_a_t, p_post_b_t);
 	res.y = Math::cubic_interpolate_in_time(res.y, p_b.y, p_pre_a.y, p_post_b.y, p_weight, p_b_t, p_pre_a_t, p_post_b_t);
@@ -154,7 +154,7 @@ Vector4 Vector4::cubic_interpolate_in_time(const Vector4 &p_b, const Vector4 &p_
 	return res;
 }
 
-Vector4 Vector4::posmod(const real_t p_mod) const {
+Vector4 Vector4::posmod(real_t p_mod) const {
 	return Vector4(Math::fposmod(x, p_mod), Math::fposmod(y, p_mod), Math::fposmod(z, p_mod), Math::fposmod(w, p_mod));
 }
 

@@ -50,7 +50,7 @@ class CharProxy {
 	CowData<T> &_cowdata;
 	static inline const T _null = 0;
 
-	_FORCE_INLINE_ CharProxy(const int64_t &p_index, CowData<T> &p_cowdata) :
+	_FORCE_INLINE_ CharProxy(int64_t p_index, CowData<T> &p_cowdata) :
 			_index(p_index),
 			_cowdata(p_cowdata) {}
 

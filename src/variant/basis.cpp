@@ -410,7 +410,7 @@ Quaternion Basis::get_rotation_quaternion() const {
 	return m.get_quaternion();
 }
 
-void Basis::rotate_to_align(Vector3 p_start_direction, Vector3 p_end_direction) {
+void Basis::rotate_to_align(const Vector3 &p_start_direction, const Vector3 &p_end_direction) {
 	// Takes two vectors and rotates the basis from the first vector to the second vector.
 	// Adopted from: https://gist.github.com/kevinmoran/b45980723e53edeb8a5a43c49f134724
 	const Vector3 axis = p_start_direction.cross(p_end_direction).normalized();
@@ -901,7 +901,7 @@ void Basis::_set_diagonal(const Vector3 &p_diag) {
 	rows[2][2] = p_diag.z;
 }
 
-Basis Basis::lerp(const Basis &p_to, const real_t &p_weight) const {
+Basis Basis::lerp(const Basis &p_to, real_t p_weight) const {
 	Basis b;
 	b.rows[0] = rows[0].lerp(p_to.rows[0], p_weight);
 	b.rows[1] = rows[1].lerp(p_to.rows[1], p_weight);
@@ -910,7 +910,7 @@ Basis Basis::lerp(const Basis &p_to, const real_t &p_weight) const {
 	return b;
 }
 
-Basis Basis::slerp(const Basis &p_to, const real_t &p_weight) const {
+Basis Basis::slerp(const Basis &p_to, real_t p_weight) const {
 	//consider scale
 	Quaternion from(*this);
 	Quaternion to(p_to);

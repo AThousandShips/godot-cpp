@@ -56,12 +56,12 @@ struct _NO_DISCARD_ Projection {
 
 	Vector4 columns[4];
 
-	_FORCE_INLINE_ const Vector4 &operator[](const int p_axis) const {
+	_FORCE_INLINE_ const Vector4 &operator[](int p_axis) const {
 		DEV_ASSERT((unsigned int)p_axis < 4);
 		return columns[p_axis];
 	}
 
-	_FORCE_INLINE_ Vector4 &operator[](const int p_axis) {
+	_FORCE_INLINE_ Vector4 &operator[](int p_axis) {
 		DEV_ASSERT((unsigned int)p_axis < 4);
 		return columns[p_axis];
 	}
@@ -79,7 +79,7 @@ struct _NO_DISCARD_ Projection {
 	void set_orthogonal(real_t p_left, real_t p_right, real_t p_bottom, real_t p_top, real_t p_znear, real_t p_zfar);
 	void set_orthogonal(real_t p_size, real_t p_aspect, real_t p_znear, real_t p_zfar, bool p_flip_fov = false);
 	void set_frustum(real_t p_left, real_t p_right, real_t p_bottom, real_t p_top, real_t p_near, real_t p_far);
-	void set_frustum(real_t p_size, real_t p_aspect, Vector2 p_offset, real_t p_near, real_t p_far, bool p_flip_fov = false);
+	void set_frustum(real_t p_size, real_t p_aspect, const Vector2 &p_offset, real_t p_near, real_t p_far, bool p_flip_fov = false);
 	void adjust_perspective_znear(real_t p_new_znear);
 
 	static Projection create_depth_correction(bool p_flip_y);
@@ -90,7 +90,7 @@ struct _NO_DISCARD_ Projection {
 	static Projection create_orthogonal(real_t p_left, real_t p_right, real_t p_bottom, real_t p_top, real_t p_znear, real_t p_zfar);
 	static Projection create_orthogonal_aspect(real_t p_size, real_t p_aspect, real_t p_znear, real_t p_zfar, bool p_flip_fov = false);
 	static Projection create_frustum(real_t p_left, real_t p_right, real_t p_bottom, real_t p_top, real_t p_near, real_t p_far);
-	static Projection create_frustum_aspect(real_t p_size, real_t p_aspect, Vector2 p_offset, real_t p_near, real_t p_far, bool p_flip_fov = false);
+	static Projection create_frustum_aspect(real_t p_size, real_t p_aspect, const Vector2 &p_offset, real_t p_near, real_t p_far, bool p_flip_fov = false);
 	static Projection create_fit_aabb(const AABB &p_aabb);
 	Projection perspective_znear_adjusted(real_t p_new_znear) const;
 	Plane get_projection_plane(Planes p_plane) const;

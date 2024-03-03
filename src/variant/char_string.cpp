@@ -361,7 +361,7 @@ String String::operator+(const char32_t *p_str) {
 	return *this + String(p_str);
 }
 
-String String::operator+(const char32_t p_char) {
+String String::operator+(char32_t p_char) {
 	return *this + String::chr(p_char);
 }
 

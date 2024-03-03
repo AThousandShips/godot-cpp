@@ -97,7 +97,7 @@ static _FORCE_INLINE_ uint32_t hash_djb2_one_32(uint32_t p_in, uint32_t p_prev =
  * @param p_int - 64-bit unsigned integer key to be hashed
  * @return unsigned 32-bit value representing hashcode
  */
-static _FORCE_INLINE_ uint32_t hash_one_uint64(const uint64_t p_int) {
+static _FORCE_INLINE_ uint32_t hash_one_uint64(uint64_t p_int) {
 	uint64_t v = p_int;
 	v = (~v) + (v << 18); // v = (v << 18) - v - 1;
 	v = v ^ (v >> 31);
@@ -187,7 +187,7 @@ static _FORCE_INLINE_ uint32_t hash_fmix32(uint32_t h) {
 	return h;
 }
 
-static _FORCE_INLINE_ uint32_t hash_murmur3_buffer(const void *key, int length, const uint32_t seed = HASH_MURMUR3_SEED) {
+static _FORCE_INLINE_ uint32_t hash_murmur3_buffer(const void *key, int length, uint32_t seed = HASH_MURMUR3_SEED) {
 	// Although not required, this is a random prime number.
 	const uint8_t *data = (const uint8_t *)key;
 	const int nblocks = length / 4;
@@ -311,24 +311,24 @@ struct HashMapHasherDefault {
 
 	static _FORCE_INLINE_ uint32_t hash(const String &p_string) { return p_string.hash(); }
 	static _FORCE_INLINE_ uint32_t hash(const char *p_cstr) { return hash_djb2(p_cstr); }
-	static _FORCE_INLINE_ uint32_t hash(const wchar_t p_wchar) { return hash_fmix32(p_wchar); }
-	static _FORCE_INLINE_ uint32_t hash(const char16_t p_uchar) { return hash_fmix32(p_uchar); }
-	static _FORCE_INLINE_ uint32_t hash(const char32_t p_uchar) { return hash_fmix32(p_uchar); }
+	static _FORCE_INLINE_ uint32_t hash(wchar_t p_wchar) { return hash_fmix32(p_wchar); }
+	static _FORCE_INLINE_ uint32_t hash(char16_t p_uchar) { return hash_fmix32(p_uchar); }
+	static _FORCE_INLINE_ uint32_t hash(char32_t p_uchar) { return hash_fmix32(p_uchar); }
 	static _FORCE_INLINE_ uint32_t hash(const RID &p_rid) { return hash_one_uint64(p_rid.get_id()); }
 	static _FORCE_INLINE_ uint32_t hash(const StringName &p_string_name) { return p_string_name.hash(); }
 	static _FORCE_INLINE_ uint32_t hash(const NodePath &p_path) { return p_path.hash(); }
 	static _FORCE_INLINE_ uint32_t hash(const ObjectID &p_id) { return hash_one_uint64(p_id); }
 
-	static _FORCE_INLINE_ uint32_t hash(const uint64_t p_int) { return hash_one_uint64(p_int); }
-	static _FORCE_INLINE_ uint32_t hash(const int64_t p_int) { return hash_one_uint64(p_int); }
-	static _FORCE_INLINE_ uint32_t hash(const float p_float) { return hash_murmur3_one_float(p_float); }
-	static _FORCE_INLINE_ uint32_t hash(const double p_double) { return hash_murmur3_one_double(p_double); }
-	static _FORCE_INLINE_ uint32_t hash(const uint32_t p_int) { return hash_fmix32(p_int); }
-	static _FORCE_INLINE_ uint32_t hash(const int32_t p_int) { return hash_fmix32(p_int); }
-	static _FORCE_INLINE_ uint32_t hash(const uint16_t p_int) { return hash_fmix32(p_int); }
-	static _FORCE_INLINE_ uint32_t hash(const int16_t p_int) { return hash_fmix32(p_int); }
-	static _FORCE_INLINE_ uint32_t hash(const uint8_t p_int) { return hash_fmix32(p_int); }
-	static _FORCE_INLINE_ uint32_t hash(const int8_t p_int) { return hash_fmix32(p_int); }
+	static _FORCE_INLINE_ uint32_t hash(uint64_t p_int) { return hash_one_uint64(p_int); }
+	static _FORCE_INLINE_ uint32_t hash(int64_t p_int) { return hash_one_uint64(p_int); }
+	static _FORCE_INLINE_ uint32_t hash(float p_float) { return hash_murmur3_one_float(p_float); }
+	static _FORCE_INLINE_ uint32_t hash(double p_double) { return hash_murmur3_one_double(p_double); }
+	static _FORCE_INLINE_ uint32_t hash(uint32_t p_int) { return hash_fmix32(p_int); }
+	static _FORCE_INLINE_ uint32_t hash(int32_t p_int) { return hash_fmix32(p_int); }
+	static _FORCE_INLINE_ uint32_t hash(uint16_t p_int) { return hash_fmix32(p_int); }
+	static _FORCE_INLINE_ uint32_t hash(int16_t p_int) { return hash_fmix32(p_int); }
+	static _FORCE_INLINE_ uint32_t hash(uint8_t p_int) { return hash_fmix32(p_int); }
+	static _FORCE_INLINE_ uint32_t hash(int8_t p_int) { return hash_fmix32(p_int); }
 	static _FORCE_INLINE_ uint32_t hash(const Vector2i &p_vec) {
 		uint32_t h = hash_murmur3_one_32(p_vec.x);
 		h = hash_murmur3_one_32(p_vec.y, h);
@@ -399,14 +399,14 @@ struct HashMapComparatorDefault {
 
 template <>
 struct HashMapComparatorDefault<float> {
-	static bool compare(const float &p_lhs, const float &p_rhs) {
+	static bool compare(float p_lhs, float p_rhs) {
 		return (p_lhs == p_rhs) || (Math::is_nan(p_lhs) && Math::is_nan(p_rhs));
 	}
 };
 
 template <>
 struct HashMapComparatorDefault<double> {
-	static bool compare(const double &p_lhs, const double &p_rhs) {
+	static bool compare(double p_lhs, double p_rhs) {
 		return (p_lhs == p_rhs) || (Math::is_nan(p_lhs) && Math::is_nan(p_rhs));
 	}
 };
@@ -498,7 +498,7 @@ const uint64_t hash_table_size_primes_inv[HASH_TABLE_SIZE_MAX] = {
  * Faster Remainder by Direct Computation: Applications to Compilers and Software Libraries
  * https://arxiv.org/abs/1902.01961
  */
-static _FORCE_INLINE_ uint32_t fastmod(const uint32_t n, const uint64_t c, const uint32_t d) {
+static _FORCE_INLINE_ uint32_t fastmod(uint32_t n, uint64_t c, uint32_t d) {
 #if defined(_MSC_VER)
 	// Returns the upper 64 bits of the product of two 64-bit unsigned integers.
 	// This intrinsic function is required since MSVC does not support unsigned 128-bit integers.
