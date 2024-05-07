@@ -278,6 +278,26 @@ public:
 		return _data ? _data->last : nullptr;
 	}
 
+	_FORCE_INLINE_ const T &get_front() const {
+		CRASH_COND(front() == nullptr);
+		return front()->get();
+	}
+
+	_FORCE_INLINE_ T &get_front() {
+		CRASH_COND(front() == nullptr);
+		return front()->get();
+	}
+
+	_FORCE_INLINE_ const T &get_back() const {
+		CRASH_COND(back() == nullptr);
+		return back()->get();
+	}
+
+	_FORCE_INLINE_ T &get_back() {
+		CRASH_COND(back() == nullptr);
+		return back()->get();
+	}
+
 	/**
 	 * store a new element at the end of the list
 	 */
