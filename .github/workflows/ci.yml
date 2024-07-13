@@ -75,8 +75,8 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup Godot build cache
-        uses: ./.github/actions/godot-cache
+      - name: Restore Godot build cache
+        uses: ./.github/actions/godot-cache-restore
         with:
           cache-name: ${{ matrix.cache-name }}
         continue-on-error: true
@@ -115,6 +115,12 @@ jobs:
         run: |
           cd test
           scons platform=${{ matrix.platform }} target=release ${{ matrix.flags }}
+
+      - name: Save Godot build cache
+        uses: ./.github/actions/godot-cache-save
+        with:
+          cache-name: ${{ matrix.cache-name }}
+        continue-on-error: true
 
       - name: Run test GDNative library
         if: ${{ matrix.platform == 'linux' || matrix.platform == 'osx' }}
